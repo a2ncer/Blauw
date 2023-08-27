@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Blauw.Transactions.FunctionApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7071 --pause-on-error --cors '*'",
+      "launchBrowser": false
+    }
+  }
+}

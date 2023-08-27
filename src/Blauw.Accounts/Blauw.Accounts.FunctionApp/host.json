@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "logging": {
+    "logLevel": {
+      "default": "Warning",
+      "Blauw.Accounts.FunctionApp.ApiFunctions" : "Information"
+    },
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
+    }
+  },
+  "extensions": {
+    "http": {
+      "routePrefix": ""
+    }
+  }
+}
