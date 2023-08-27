@@ -42,7 +42,7 @@ public class AccountsFunctions
         contentType: "application/json",
         bodyType: typeof(SingleAccountDto),
         Description = "Successful operation")]
-    public async Task<HttpResponseData> CreateAccountAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "accounts")] HttpRequestData req, [FromBody][Required] CreateAccountCommand accountCommand)
+    public async Task<HttpResponseData> CreateAccountAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "accounts")] HttpRequestData req, [FromBody][Required] CreateAccountCommand accountCommand)
     {
         _logger.LogInformation("Create account for customer {CustomerId}", accountCommand.CustomerId);
         
@@ -69,7 +69,7 @@ public class AccountsFunctions
         contentType: "application/json",
         bodyType: typeof(AccountsDto),
         Description = "Successful operation")]
-    public async Task<HttpResponseData> GetAccountsAsync([HttpTrigger(AuthorizationLevel.Function, "get", Route = "accounts")] HttpRequestData req, [FromQuery] Guid customerId, FunctionContext executionContext)
+    public async Task<HttpResponseData> GetAccountsAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "accounts")] HttpRequestData req, [FromQuery] Guid customerId, FunctionContext executionContext)
     {
         var response = req.CreateResponse(HttpStatusCode.OK);
         
@@ -97,7 +97,7 @@ public class AccountsFunctions
         contentType: "application/json",
         bodyType: typeof(SingleAccountDto),
         Description = "Successful operation")]
-    public async Task<HttpResponseData> GetAccountAsync([HttpTrigger(AuthorizationLevel.Function, "get", Route = "accounts/{id}")] HttpRequestData req, Guid id, FunctionContext executionContext)
+    public async Task<HttpResponseData> GetAccountAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "accounts/{id}")] HttpRequestData req, Guid id, FunctionContext executionContext)
     {
         var response = req.CreateResponse(HttpStatusCode.OK);
 
@@ -118,7 +118,7 @@ public class AccountsFunctions
         Visibility = OpenApiVisibilityType.Important)]
     [OpenApiRequestBody("application/json", bodyType: typeof(UpdateAccountBalanceRequest), Required = true)]
     [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.OK, Description = "Successful operation")]
-    public async Task<HttpResponseData> UpdateAccountBalanceAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "accounts/{id}/balance")] HttpRequestData req, Guid id, [FromBody][Required] UpdateAccountBalanceRequest updateAccountBalanceRequest)
+    public async Task<HttpResponseData> UpdateAccountBalanceAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "accounts/{id}/balance")] HttpRequestData req, Guid id, [FromBody][Required] UpdateAccountBalanceRequest updateAccountBalanceRequest)
     {
         _logger.LogInformation("Update account {Id} balance with {Increment}", id, updateAccountBalanceRequest.Amount);
         

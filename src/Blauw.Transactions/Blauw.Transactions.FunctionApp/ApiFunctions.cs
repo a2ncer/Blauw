@@ -21,7 +21,7 @@ public class ApiFunctions
         contentType: "application/json",
         bodyType: typeof(TransactionsResponse),
         Description = "Successful operation")]
-    public async Task<HttpResponseData> GetAccountsAsync([HttpTrigger(AuthorizationLevel.Function, "get", Route = "transactions")] HttpRequestData req, FunctionContext executionContext)
+    public async Task<HttpResponseData> GetAccountsAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "transactions")] HttpRequestData req, FunctionContext executionContext)
     {
         var logger = executionContext.GetLogger("ApiFunctions");
         logger.LogInformation("C# HTTP trigger function processed a request"); 
