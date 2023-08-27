@@ -1,0 +1,56 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "*" ]
+    paths-ignore:
+      - '**/README.md'
+  workflow_dispatch:
+
+env:
+  ACCOUNTS_APP: blauw-accounts
+  TRANSACTIONS_APP: blauw-transactions
+  
+  ACCOUNTS_APP_PACKAGE_PATH: src/Blauw.Accounts/Blauw.Accounts.FunctionApp/publish
+  ACCOUNTS_WORKING_DIRECTORY: src/Blauw.Accounts/Blauw.Accounts.FunctionApp
+
+  TRANSACTIONS_APP_PACKAGE_PATH: src/Blauw.Transactions/Blauw.Transactions.FunctionApp/publish
+  TRANSACTIONS_WORKING_DIRECTORY: src/Blauw.Transactions/Blauw.Transactions.FunctionApp
+  
+  DOTNET_CORE_VERSION: 6.0.x
+  CONFIGURATION: Release
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+      - name: Restore
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+      - name: Test
+        run: dotnet test --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal
+        
+      - name: Publish Accounts
+        run: dotnet publish "${{ env.ACCOUNTS_WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.ACCOUNTS_APP_PACKAGE_PATH }}"
+      - name: Publish Transactions
+        run: dotnet publish "${{ env.TRANSACTIONS_WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.TRANSACTIONS_APP_PACKAGE_PATH }}"
+
+      - name: Deploy Accounts
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.ACCOUNTS_APP }}
+          publish-profile: ${{ secrets.ACCOUNTS_PROD }}
+          package: ${{ env.ACCOUNTS_APP_PACKAGE_PATH }}
+
+      - name: Deploy Transactions
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.TRANSACTIONS_APP }}
+          publish-profile: ${{ secrets.TRANSACTIONS_PROD }}
+          package: ${{ env.TRANSACTIONS_APP_PACKAGE_PATH }}
