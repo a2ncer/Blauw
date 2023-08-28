@@ -10,6 +10,8 @@ on:
 env:
   FRONTEND_WORKING_DIRECTORY: src/Blauw.Frontend
   FRONTEND_PACKAGE_PATH: src/Blauw.Frontend/dist
+  ACCOUNTS_SERVICE_URI: ${{ vars.ACCOUNTS_SERVICE_URI }}
+  TRANSACTIONS_SERVICE_URI: ${{ vars.TRANSACTIONS_SERVICE_URI }}
 
 jobs:
   build-and-deploy:
