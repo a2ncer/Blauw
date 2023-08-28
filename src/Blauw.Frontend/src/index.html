@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Account Management</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Account</h1>
+        <select id="customerDropdown">
+            <option value="3fa85f64-5717-4562-b3fc-2c963f66afa6">Customer 1</option>
+            <option value="fa0d3e28-a26b-48ab-b0a7-264c916c8c21">Customer 2</option>
+            <!-- Add more customer options as needed -->
+        </select>
+        <select id="currencyDropdown">
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
+            <!-- Add more customer options as needed -->
+        </select>
+        <input type="number" id="balanceInput" placeholder="Initial Balance">
+        <button id="createAccountBtn">Create Account</button>
+
+        <h1>View Accounts</h1>
+        <table class="dataTable">
+            <thead>
+                <tr>
+                    <th>Account ID</th>
+                    <th>Customer ID</th>
+                    <th>Balance</th>
+                    <th>Currency</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="accountList">
+                <!-- Add rows as needed -->
+            </tbody>
+        </table>
+
+        <div class="accountDetails">
+            <h2>Account Details</h2>
+            <h3 id="accountBalance"></h3>
+            <h4 id="accountCurrency"></h4>
+            <div id="accountId"></div>
+            <div id="customerId"></div>
+            <input type="number" min=0 id="accountBalanceInput" placeholder="Amount">
+            <button id="depositAccountBtn">Deposit</button>
+            <button id="withdrawAccountBtn">Withdraw</button>
+            
+            
+            <h2>Transactions</h2>
+            <table class="dataTable">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Created Date</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Processed Date</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionList">
+                    <!-- Transactions will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
