@@ -23,7 +23,9 @@ public static class InfrastructureConfiguration
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         return services.AddJsonSerializerOptions().AddConfiguration().AddDbContext().AddRepositories().AddOpenApi().AddMediatR(cfg =>
-            cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionCommand).Assembly, typeof(BalanceChangeRequestedEvent).Assembly));
+            cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionCommand).Assembly, typeof(BalanceChangeRequestedEvent).Assembly))
+            .AddAutoMapper(typeof(Program))
+            .AddServiceBus();
     }
 
     static IServiceCollection AddServiceBus(this IServiceCollection services)
