@@ -1,4 +1,5 @@
-﻿using Blauw.Accounts.Abstractions.Models;
+﻿using Blauw.Accounts.Abstractions.Enums;
+using Blauw.Accounts.Abstractions.Models;
 using Blauw.Accounts.Abstractions.Repositories;
 using MongoDB.Driver;
 
@@ -44,6 +45,12 @@ public class AccountRepository : IAccountRepository
         }
         
         var update = Builders<Account>.Update.Set(x => x.Balance, account.Balance + increment);
+
+        if (account.Status == AccountStatus.Pending)
+        {
+            // update status to active
+            update = update.Set(x => x.Status, AccountStatus.Active);
+        }
         
         var result = await _context.Accounts.UpdateOneAsync(filter, update);
         
