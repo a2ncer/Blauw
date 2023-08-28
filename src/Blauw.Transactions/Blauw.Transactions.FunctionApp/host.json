@@ -2,7 +2,8 @@
     "version": "2.0",
     "logging": {
         "logLevel": {
-            "default": "Warning"
+            "default": "Warning",
+            "Blauw.Transactions.FunctionApp.ApiFunctions" : "Information"
         },
         "applicationInsights": {
             "samplingSettings": {

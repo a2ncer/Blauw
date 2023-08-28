@@ -188,22 +188,23 @@ const { get } = require("http");
             console.log("Fetching transaction history for account: " + currentAccountId);
 
             // Fetch updated transaction history
-            // fetch(`${transactionsServiceUri}/transactions?accountId=${selectedAccountId}`)
-            //     .then(response => response.json())
-            //     .then(transactions => {
-            //         // Update transaction history in the view
-            //         const transactionList = document.getElementById("transactionList");
-            //         transactionList.innerHTML = ""; // Clear existing transactions
+            fetch(`${transactionsServiceUri}/transactions?accountId=${currentAccountId}`)
+                .then(response => response.json())
+                .then(transactions => {
+                    // Update transaction history in the view
+                    const transactionList = document.getElementById("transactionList");
+                    transactionList.innerHTML = ""; // Clear existing transactions
 
-            //         transactions.data.forEach(transaction => {
-            //             const transactionItem = document.createElement("li");
-            //             transactionItem.textContent = `Amount: ${transaction.amount}, Date: ${transaction.date}`;
-            //             transactionList.appendChild(transactionItem);
-            //         });
-            //     })
-            //     .catch(error => {
-            //         console.error("Error fetching transaction history:", error);
-            //     });
+                    transactions.data.forEach(transaction => {
+                        const transactionItem = document.createElement("tr");
+                        transactionItem.innerHTML = `<td>${transaction.id}</td><td>${transaction.accountId}</td><td>${transaction.createdAt}</td><td>${transaction.amount}</td><td>${transaction.currency}</td><td>${transaction.status}</td>`;
+
+                        transactionList.appendChild(transactionItem);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching transaction history:", error);
+                });
         }
 
 

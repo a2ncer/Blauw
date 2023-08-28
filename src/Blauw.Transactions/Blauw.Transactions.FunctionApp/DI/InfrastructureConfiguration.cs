@@ -1,7 +1,8 @@
-﻿using Blauw.Accounts.Abstractions.Repositories;
-using Blauw.Accounts.Application.Commands;
-using Blauw.Accounts.Infrastructure.DataAccess;
-using Blauw.Accounts.Infrastructure.DataAccess.Repositories;
+﻿using Blauw.Accounts.FunctionApp;
+using Blauw.Transactions.Abstractions.Repositories;
+using Blauw.Transactions.Application.Commands;
+using Blauw.Transactions.Infrastructure.DataAccess;
+using Blauw.Transactions.Infrastructure.DataAccess.Repositories;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Abstractions;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Configurations;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
@@ -12,13 +13,13 @@ using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Blauw.Accounts.FunctionApp.DI;
+namespace Blauw.Transactions.FunctionApp.DI;
 
 public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        return services.AddJsonSerializerOptions().AddConfiguration().AddDbContext().AddRepositories().AddOpenApi().AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAccountCommand).Assembly))
+        return services.AddJsonSerializerOptions().AddConfiguration().AddDbContext().AddRepositories().AddOpenApi().AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTransactionCommand).Assembly))
             .AddAutoMapper(typeof(Program));
     }
 
@@ -49,7 +50,7 @@ public static class InfrastructureConfiguration
                 OpenApiVersion = OpenApiVersionType.V3,
                 Info =
                 {
-                    Title = "Account Service"
+                    Title = "Transaction Service"
                 }
             };
 
@@ -77,6 +78,6 @@ public static class InfrastructureConfiguration
 
     static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        return services.AddSingleton<IAccountRepository, AccountRepository>();
+        return services.AddSingleton<ITransactionRepository, TransactionRepository>();
     }
 }

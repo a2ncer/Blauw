@@ -1,28 +1,18 @@
-﻿namespace Blauw.Transactions.Abstractions.Models;
+﻿using Blauw.Common.Abstractions.Enums;
+using Blauw.Transactions.Abstractions.Enums;
+
+namespace Blauw.Transactions.Abstractions.Models;
 
 public class Transaction
 {
-    public Transaction(Guid id, Guid accountId, double amount, DateTimeOffset createdAt, DateTimeOffset processedAt, TransactionStatus status)
-    {
-        Id = id;
-        AccountId = accountId;
-        Amount = amount;
-        CreatedAt = createdAt;
-        ProcessedAt = processedAt;
-        Status = status;
-    }
-
-    public Guid Id { get; }
-    public Guid AccountId { get; }
-    public double Amount { get; }
-    public DateTimeOffset CreatedAt { get; }
-    public DateTimeOffset ProcessedAt { get; }
-    public TransactionStatus Status { get; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid AccountId { get; set; }
+    
+    public decimal Amount { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow; 
+    public DateTimeOffset? ProcessedAt { get; set; }
+    
+    public Currency Currency { get; set; } = Currency.EUR;
+    public TransactionStatus Status { get; set; } = TransactionStatus.Pending;
 }
 
-public enum TransactionStatus
-{
-    Pending,
-    Completed,
-    Failed
-}
