@@ -1,5 +1,7 @@
 ﻿using Blauw.Accounts.Abstractions.Repositories;
 using Blauw.Accounts.Application.Commands;
+using Blauw.Common.Abstractions.EventBus;
+using Blauw.Common.Abstractions.Events.Accounts;
 using MediatR;
 
 namespace Blauw.Accounts.Application.Handlers;
@@ -7,10 +9,12 @@ namespace Blauw.Accounts.Application.Handlers;
 public class TryUpdateAccountBalanceHandler : IRequestHandler<UpdateAccountBalanceCommand, Unit>
 {
     readonly  IAccountRepository _accountRepository;
+    readonly IEventBus _eventBus;
 
-    public TryUpdateAccountBalanceHandler(IAccountRepository accountRepository)
+    public TryUpdateAccountBalanceHandler(IAccountRepository accountRepository, IEventBus eventBus)
     {
         _accountRepository = accountRepository;
+        _eventBus = eventBus;
     }
 
     public async Task<Unit> Handle(UpdateAccountBalanceCommand request, CancellationToken cancellationToken)
@@ -27,8 +31,13 @@ public class TryUpdateAccountBalanceHandler : IRequestHandler<UpdateAccountBalan
             throw new Exception("Insufficient funds");
         }
         
-        // TODO: publish event for transactions service, using IEventBus which will be defined later
-        //await _eventBus.PublishAsync(new AccountBalanceUpdatedEvent(request.AccountId, request.Amount));
+        await _eventBus.PublishAsync(new BalanceChangeRequestedEvent
+            {
+                Amount = request.Amount,
+                Currency = account.Currency,
+                AccountId = request.AccountId
+            },
+            cancellationToken);
 
         return Unit.Value;
     }

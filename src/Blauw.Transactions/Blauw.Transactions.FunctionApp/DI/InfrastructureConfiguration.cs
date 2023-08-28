@@ -1,4 +1,7 @@
-﻿using Blauw.Accounts.FunctionApp;
+﻿using System.Reflection;
+using Blauw.Common.Abstractions.EventBus;
+using Blauw.Common.Abstractions.Events.Accounts;
+using Blauw.Common.Infrastructure.EventBus;
 using Blauw.Transactions.Abstractions.Repositories;
 using Blauw.Transactions.Application.Commands;
 using Blauw.Transactions.Infrastructure.DataAccess;
@@ -19,8 +22,22 @@ public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        return services.AddJsonSerializerOptions().AddConfiguration().AddDbContext().AddRepositories().AddOpenApi().AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTransactionCommand).Assembly))
-            .AddAutoMapper(typeof(Program));
+        return services.AddJsonSerializerOptions().AddConfiguration().AddDbContext().AddRepositories().AddOpenApi().AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionCommand).Assembly, typeof(BalanceChangeRequestedEvent).Assembly));
+    }
+
+    static IServiceCollection AddServiceBus(this IServiceCollection services)
+    {
+        services.AddSingleton<IEventBus, EventBus>(s =>
+        {
+            var settings = s.GetRequiredService<AppSettings>();
+            ArgumentNullException.ThrowIfNull(settings.TransactionTopicName);
+            ArgumentNullException.ThrowIfNull(settings.ServiceBus);
+
+            return new EventBus(settings.ServiceBus, settings.TransactionTopicName);
+        });
+
+        return services;
     }
 
     static IServiceCollection AddJsonSerializerOptions(this IServiceCollection services)

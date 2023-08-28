@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{33DE33
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauw.Common.Abstractions", "src\Blauw.Common\Blauw.Common.Abstractions\Blauw.Common.Abstractions.csproj", "{91DC23B3-8D7C-43CF-B900-213C1AAA034A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauw.Common.Infrastructure", "src\Blauw.Common\Blauw.Common.Infrastructure\Blauw.Common.Infrastructure.csproj", "{272D046F-2505-4773-BBBA-A33EECE5151A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{91DC23B3-8D7C-43CF-B900-213C1AAA034A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91DC23B3-8D7C-43CF-B900-213C1AAA034A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91DC23B3-8D7C-43CF-B900-213C1AAA034A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272D046F-2505-4773-BBBA-A33EECE5151A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272D046F-2505-4773-BBBA-A33EECE5151A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272D046F-2505-4773-BBBA-A33EECE5151A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272D046F-2505-4773-BBBA-A33EECE5151A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AAC46F79-57A6-4E96-9B81-3790691449D3} = {3E548EE5-4450-4445-BFC6-B7F906B11147}
@@ -77,5 +83,6 @@ Global
 		{297F1571-3027-4611-8685-590102C87526} = {3E548EE5-4450-4445-BFC6-B7F906B11147}
 		{9338C6B5-89CD-45FE-A6F3-5A5F16EA9499} = {2E85C327-0EFE-40B5-A6CF-6901CD4535A4}
 		{91DC23B3-8D7C-43CF-B900-213C1AAA034A} = {33DE3385-5AB4-409F-9F62-A03B502528F1}
+		{272D046F-2505-4773-BBBA-A33EECE5151A} = {33DE3385-5AB4-409F-9F62-A03B502528F1}
 	EndGlobalSection
 EndGlobal

@@ -1,8 +1,12 @@
-﻿namespace Blauw.Accounts.FunctionApp;
+﻿namespace Blauw.Transactions.FunctionApp;
 
 public class AppSettings
 {
     public string? ApplicationDbName { get; set; }
+    
+    public string? TransactionTopicName { get; set; }
+
+    public string? ServiceBus { get; set; }
 
     public ConnectionStrings? ConnectionStrings { get; set; }
 

@@ -116,6 +116,7 @@ public class AccountsFunctions
         Summary = "Update an account for a customer",
         Description = "This updates an account for a customer",
         Visibility = OpenApiVisibilityType.Important)]
+    [OpenApiParameter("id", In = ParameterLocation.Path, Required = true, Type = typeof(Guid), Summary = "The account id")]
     [OpenApiRequestBody("application/json", bodyType: typeof(UpdateAccountBalanceRequest), Required = true)]
     [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.OK, Description = "Successful operation")]
     public async Task<HttpResponseData> UpdateAccountBalanceAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "accounts/{id}/balance")] HttpRequestData req, Guid id, [FromBody][Required] UpdateAccountBalanceRequest updateAccountBalanceRequest)

@@ -1,8 +1,9 @@
 ﻿using Blauw.Common.Abstractions.Enums;
+using MediatR;
 
-namespace Blauw.Common.Abstractions.Events;
+namespace Blauw.Common.Abstractions.Events.Transactions;
 
-public class TransactionEvent : BaseEvent
+public class TransactionEvent : BaseEvent, IRequest<Unit>
 {
     public Guid TransactionId { get; set; }
     public Guid AccountId { get; set; }
@@ -11,5 +12,5 @@ public class TransactionEvent : BaseEvent
     
     public Currency Currency { get; set; }
     
-    public override string? SessionId => $"accountId_{AccountId}";
+    public override string? SessionId => $"{EventType}_accountId_{AccountId}";
 }

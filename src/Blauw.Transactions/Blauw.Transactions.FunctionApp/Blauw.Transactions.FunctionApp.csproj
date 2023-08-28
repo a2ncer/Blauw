@@ -8,6 +8,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.ServiceBus" Version="5.13.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.19.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.14.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
@@ -26,6 +27,7 @@
         <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\..\Blauw.Common\Blauw.Common.Infrastructure\Blauw.Common.Infrastructure.csproj" />
       <ProjectReference Include="..\Blauw.Transactions.Application\Blauw.Transactions.Application.csproj" />
       <ProjectReference Include="..\Blauw.Transactions.Infrastructure\Blauw.Transactions.Infrastructure.csproj" />
     </ItemGroup>

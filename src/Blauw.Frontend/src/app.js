@@ -20,6 +20,8 @@ const { get } = require("http");
         const accountId = document.getElementById('accountId');
         const customerId = document.getElementById('customerId');
 
+        const transactionList = document.getElementById("transactionList");
+
         var currentAccountId = null;
 
         withdrawAccountBtn.addEventListener("click", function () {
@@ -102,6 +104,7 @@ const { get } = require("http");
 
             currentAccountId = null;
             clearCurrentAccountDetails();
+            clearTransactionHistory();
             getAccountList();
         });
 
@@ -175,13 +178,17 @@ const { get } = require("http");
                 });
         }
 
+        function clearTransactionHistory() {
+            
+            transactionList.innerHTML = ""; // Clear existing transactions
+        }
+
         function getTransactionHistory() {
 
             if (currentAccountId == null) {
                 // clear transaction history
                 console.log("No account selected");
-                const transactionList = document.getElementById("transactionList");
-                transactionList.innerHTML = ""; // Clear existing transactions
+                clearTransactionHistory();
                 return;
             }
 
@@ -192,8 +199,7 @@ const { get } = require("http");
                 .then(response => response.json())
                 .then(transactions => {
                     // Update transaction history in the view
-                    const transactionList = document.getElementById("transactionList");
-                    transactionList.innerHTML = ""; // Clear existing transactions
+                    clearTransactionHistory();
 
                     transactions.data.forEach(transaction => {
                         const transactionItem = document.createElement("tr");
