@@ -26,11 +26,6 @@ public class TryUpdateAccountBalanceHandler : IRequestHandler<UpdateAccountBalan
             throw new Exception("Account not found for id: " + request.AccountId);
         }
         
-        if (account.Balance + request.Amount < 0)
-        {
-            throw new Exception("Insufficient funds");
-        }
-        
         await _eventBus.PublishAsync(new BalanceChangeRequestedEvent
             {
                 Amount = request.Amount,
