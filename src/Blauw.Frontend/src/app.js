@@ -61,7 +61,7 @@ const { get } = require("http");
                 amount: amount
             };
 
-            fetch(`${accountsServiceUri}/accounts/${selectedAccount}`, {
+            fetch(`${accountsServiceUri}/accounts/${selectedAccount}/balance`, {
 
                 method: "POST",
                 headers: {

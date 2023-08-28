@@ -1,9 +1,8 @@
 ﻿using Blauw.Common.Abstractions.Enums;
-using MediatR;
 
 namespace Blauw.Common.Abstractions.Events.Accounts;
 
-public class BalanceChangeRequestedEvent : BaseEvent, IRequest<Unit>
+public class BalanceChangeRequestedEvent : BaseEvent
 {
     public Guid AccountId { get; set; }
     

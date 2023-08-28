@@ -14,7 +14,7 @@ public class AccountEventFunctions
         _mediator = mediator;
     }
     
-    [Function("TransactionFunctions")]
+    [Function("AccountFunctions")]
     public async Task OnAccountEventAsync([ServiceBusTrigger("%AccountTopicName%", "%AccountSubscriptionName%", Connection = "ServiceBus", IsSessionsEnabled = true)] string message, DateTime enqueuedTimeUtc)
     {
         var baseEvent = JsonConvert.DeserializeObject<BaseEvent>(message);
@@ -24,7 +24,7 @@ public class AccountEventFunctions
             throw new Exception("Could not deserialize message");
         }
 
-        var eventType = Type.GetType($"{baseEvent.EventType}, Blauw.Common.Abstractions");
+        var eventType = Type.GetType($"Blauw.Transactions.Application.Commands.{baseEvent.EventType}Command, Blauw.Transactions.Application");
         
         if (eventType == null)
         {

@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Blauw.Common.Abstractions.Events;
+﻿namespace Blauw.Common.Abstractions.Events;
 
 public class BaseEvent
 {
@@ -13,7 +11,7 @@ public class BaseEvent
 
     public string? EventType
     {
-        get => _eventType ?? GetType().FullName;
-        set => _eventType = value ?? GetType().FullName;
+        get => _eventType ?? GetType().Name;
+        set => _eventType = value ?? GetType().Name;
     }
 }

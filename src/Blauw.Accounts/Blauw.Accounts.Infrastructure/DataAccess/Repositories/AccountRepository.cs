@@ -36,13 +36,20 @@ public class AccountRepository : IAccountRepository
     {
         var filter = Builders<Account>.Filter.Eq(x => x.Id, id);
         
-        var update = Builders<Account>.Update.Inc(x => x.Balance, increment);
+        var account = await _context.Accounts.FindSync(filter).FirstOrDefaultAsync();
+        
+        if (account == null)
+        {
+            throw new Exception("Account not found");
+        }
+        
+        var update = Builders<Account>.Update.Set(x => x.Balance, account.Balance + increment);
         
         var result = await _context.Accounts.UpdateOneAsync(filter, update);
         
         if (result.MatchedCount == 0)
         {
-            throw new Exception("Account not found");
+            throw new Exception("Account was not updated" + account.Id);
         }
     }
 }

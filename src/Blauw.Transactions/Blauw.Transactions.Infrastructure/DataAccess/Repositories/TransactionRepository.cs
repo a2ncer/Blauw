@@ -35,14 +35,9 @@ public class TransactionRepository : ITransactionRepository
             filter = Builders<Transaction>.Filter.And(filter, Builders<Transaction>.Filter.Lte(x => x.CreatedAt, to.Value));
         }
         
-        var sort = Builders<Transaction>.Sort.Descending(x => x.CreatedAt);
+        var result = await _context.Transactions.FindSync(filter).ToListAsync();
         
-        var result = await _context.Transactions.FindSync(filter, new FindOptions<Transaction, Transaction>
-        {
-            Sort = sort
-        }).ToListAsync();
-        
-        return result;
+        return result.OrderByDescending(x => x.CreatedAt);
     }
 
     public Task CreateAsync(Transaction transaction)
