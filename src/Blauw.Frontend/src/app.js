@@ -81,7 +81,6 @@ const { get } = require("http");
                     console.error("Error withdraw account:", error);
                 });
         }
-
         
         accountRows.addEventListener('click', function (e) {
             console.log(e.target.parentElement.firstChild.textContent);
